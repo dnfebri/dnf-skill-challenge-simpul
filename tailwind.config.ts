@@ -18,6 +18,7 @@ const config: Config = {
           DEFAULT: "#2F80ED",
           inbox: "#8885FF",
           task: "#F8B76B",
+          disabled: "#4F4F4F",
         },
       },
     },

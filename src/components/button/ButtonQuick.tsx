@@ -5,13 +5,36 @@ import { Button } from "./Button";
 import { useQuickStored } from "@/stored/quick-stored";
 
 export const ButtonQuick = () => {
-  const { setQuickActive, quickActive } = useQuickStored();
+  const {
+    setQuickActive,
+    setInboxActive,
+    setTaskActive,
+    quickActive,
+    inboxActive,
+    taskActive,
+  } = useQuickStored();
+
+  function handleAcctive() {
+    setQuickActive(!quickActive);
+    setInboxActive(false);
+    setTaskActive(false);
+  }
   return (
     <Button
-      className="bg-quick absolute right-0"
-      onClick={() => setQuickActive(!quickActive)}
+      className={`absolute right-0 ${
+        quickActive && (inboxActive || taskActive)
+          ? "bg-quick-disabled"
+          : "bg-quick"
+      }`}
+      onClick={handleAcctive}
     >
-      <i className="text-white">
+      <i
+        className={`${
+          quickActive && (inboxActive || taskActive)
+            ? "text-quick-disabled"
+            : "text-white"
+        }`}
+      >
         <Lightning />
       </i>
     </Button>
