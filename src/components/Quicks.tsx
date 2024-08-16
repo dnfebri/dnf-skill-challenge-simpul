@@ -1,6 +1,5 @@
 import React from "react";
 import { ButtonInbox, ButtonQuick, ButtonTask } from "./button";
-import { WidgetQuicks } from "./WidgetQuicks";
 
 export default function Quicks() {
   return (
