@@ -25,14 +25,12 @@ export const ButtonTask = () => {
           ? "mr-32 before:bottom-14 before:opacity-100"
           : inboxActive && "mr-16"
       }
-      ${taskActive && "-mr-2 z-10"}
+      ${taskActive ? "-mr-3 z-10 text-white bg-quick-task" : "text-quick-task"}
       before:content-['Task'] before:absolute before:text-white 
     `}
       onClick={handleAcctive}
     >
-      <i className="text-quick-task">
-        <QuickTask />
-      </i>
+      <QuickTask />
     </Button>
   );
 };

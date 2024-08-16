@@ -25,14 +25,16 @@ export const ButtonInbox = () => {
           ? "mr-16 before:bottom-14 before:opacity-100"
           : taskActive && "mr-16"
       }
-      ${inboxActive && "-mr-2 z-10"}
+      ${
+        inboxActive
+          ? "-mr-3 z-10 text-white bg-quick-inbox"
+          : "text-quick-inbox"
+      }
       before:content-['Inbox'] before:absolute before:text-white
     `}
       onClick={handleAcctive}
     >
-      <i className="text-quick-inbox">
-        <QuickInbox />
-      </i>
+      <QuickInbox />
     </Button>
   );
 };
