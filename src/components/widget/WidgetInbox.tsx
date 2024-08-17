@@ -5,6 +5,7 @@ import { USER_ENUM } from "@/enums/user.enum";
 import { TYPE_INBOX } from "@/enums/type-inbox.enum";
 import { formatDate, formatTime } from "@/helpers/format";
 import { WidgetUnread } from "./WidgetUnread";
+import { useRoomStored } from "@/stored/room-stored";
 
 interface IWidgetInboxProps {
   key: number;
@@ -13,8 +14,8 @@ interface IWidgetInboxProps {
   participants: string[];
   chat:
     | {
-        sender: USER_ENUM;
-        read_by: USER_ENUM[];
+        sender: string;
+        read_by: string[];
         content: string;
         timestamp: string;
       }
@@ -24,6 +25,7 @@ interface IWidgetInboxProps {
 
 export const WidgetInbox = ({ data }: { data: IWidgetInboxProps }) => {
   const { key, type, group_name, participants, chat, room } = data;
+  const { setSelectRoom, setOpenChat } = useRoomStored();
   const truncateText = (text: string) => {
     if (text.length > 75) {
       return text.slice(0, 75) + " ...";
@@ -31,15 +33,22 @@ export const WidgetInbox = ({ data }: { data: IWidgetInboxProps }) => {
     return text;
   };
 
+  const handleSelect = () => {
+    setOpenChat();
+    setSelectRoom(room);
+  };
+
   const namePerson =
     participants[0] === USER_ENUM.me ? participants[1] : participants[0];
 
   return (
-    <div
+    <button
       className={`
       relative flex flex-1 items-start gap-4 py-p22 border-primary-disabled
+      hover:bg-primary-light transition-all duration-300
       ${key !== 0 ? "border-t" : ""}
     `}
+      onClick={handleSelect}
     >
       <div className="py-1 pr-4 relative">
         {type === TYPE_INBOX.group ? (
@@ -57,7 +66,7 @@ export const WidgetInbox = ({ data }: { data: IWidgetInboxProps }) => {
           </WrapperIcon>
         )}
       </div>
-      <div className="w-full">
+      <div className="w-full text-start">
         <div className="flex gap-4">
           <p className="text-base text-primary">
             {group_name ? group_name : namePerson}
@@ -75,6 +84,6 @@ export const WidgetInbox = ({ data }: { data: IWidgetInboxProps }) => {
         </div>
       </div>
       {chat && !chat.read_by.includes(USER_ENUM.me) && <WidgetUnread />}
-    </div>
+    </button>
   );
 };

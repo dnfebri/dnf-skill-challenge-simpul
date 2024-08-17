@@ -7,13 +7,17 @@ import { useInboxFunction } from "@/hooks/useInboxFunction";
 export const Inbox = () => {
   const { dataInbox } = useInboxStored();
   const { getInbox } = useInboxFunction();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const getFunction = async () => {
+    if (dataInbox.length > 0) return;
+    setIsLoading(true);
     try {
       const res = await getInbox();
       setIsLoading(!res);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
