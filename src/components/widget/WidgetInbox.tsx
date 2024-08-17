@@ -68,7 +68,7 @@ export const WidgetInbox = ({ data }: { data: IWidgetInboxProps }) => {
       </div>
       <div className="w-full text-start">
         <div className="flex gap-4">
-          <p className="text-base text-primary">
+          <p className="text-base text-primary font-bold">
             {group_name ? group_name : namePerson}
           </p>
           <p className="text-xs text-primary-disabled min-w-max">
