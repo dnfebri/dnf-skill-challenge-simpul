@@ -19,7 +19,7 @@ export const ButtonInbox = () => {
   return (
     <Button
       className={`
-      bg-white absolute right-0 
+      absolute right-0 
       ${
         quickActive && !inboxActive && !taskActive
           ? "mr-16 before:bottom-14 before:opacity-100"
@@ -28,7 +28,7 @@ export const ButtonInbox = () => {
       ${
         inboxActive
           ? "-mr-3 z-10 text-white bg-quick-inbox"
-          : "text-quick-inbox"
+          : "text-quick-inbox bg-white"
       }
       before:content-['Inbox'] before:absolute before:text-white
     `}

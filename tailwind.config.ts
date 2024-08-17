@@ -1,5 +1,9 @@
 import type { Config } from "tailwindcss";
 
+const size = {
+  p22: "22px",
+};
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -13,6 +17,9 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      gap: size,
+      margin: size,
+      padding: size,
       fontSize: {
         xs: ["12px", "12px"],
         sm: ["14px", "14px"],
@@ -24,6 +31,12 @@ const config: Config = {
           dark: "#4F4F4F",
           light: "#E0E0E0",
           disabled: "#828282",
+        },
+        indicator: {
+          orange: "#F8B76B",
+          purple: "#8785FF",
+          red: "#EB5757",
+          yellow: "#F2C94C",
         },
         quick: {
           DEFAULT: "#2F80ED",

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { WrapperWidget } from "./WrapperWidget";
+import { WrapperWidgetQuick } from "./WrapperWidgetQuick";
 import { useQuickStored } from "@/stored/quick-stored";
 import { QuickInbox } from "../quick/QuickInbox";
 import { QuickTask } from "../quick/QuickTask";
@@ -11,10 +11,10 @@ export const WidgetQuicks = () => {
   return (
     <>
       {(inboxActive || taskActive) && (
-        <WrapperWidget>
+        <WrapperWidgetQuick>
           {inboxActive && <QuickInbox />}
           {taskActive && <QuickTask />}
-        </WrapperWidget>
+        </WrapperWidgetQuick>
       )}
     </>
   );

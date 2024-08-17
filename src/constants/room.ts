@@ -34,7 +34,7 @@ export const ROOM = [
     chat: [
       {
         sender: ellen,
-        read_by: [diana],
+        read_by: [me, diana],
         content: "Hey, please read.",
         timestamp: "2021-01-02 10:10:10",
       },
@@ -47,7 +47,7 @@ export const ROOM = [
     chat: [
       {
         sender: cameronPhillips,
-        read_by: [ellen],
+        read_by: [me, ellen],
         content:
           "I understand your initial concerns and thats very valid, Elizabeth. But you Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         timestamp: "2021-01-02 10:10:10",
@@ -61,7 +61,7 @@ export const ROOM = [
     chat: [
       {
         sender: fastVisaSupport,
-        read_by: [],
+        read_by: [me],
         content: "Hey there! Welcome to your inbox.",
         timestamp: "2021-01-06 12:19:00",
       },
