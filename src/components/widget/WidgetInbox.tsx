@@ -3,7 +3,7 @@ import { UserIcon } from "../icons/UserIcon";
 import { WrapperIcon } from "./WrapperIcon";
 import { USER_ENUM } from "@/enums/user.enum";
 import { TYPE_INBOX } from "@/enums/type-inbox.enum";
-import { formatDate, formatTime } from "@/helpers/format";
+import { FormatDate, FormatTime, TruncateText } from "@/helpers/format";
 import { WidgetUnread } from "./WidgetUnread";
 import { useRoomStored } from "@/stored/room-stored";
 
@@ -26,12 +26,6 @@ interface IWidgetInboxProps {
 export const WidgetInbox = ({ data }: { data: IWidgetInboxProps }) => {
   const { key, type, group_name, participants, chat, room } = data;
   const { setSelectRoom, setOpenChat } = useRoomStored();
-  const truncateText = (text: string) => {
-    if (text.length > 75) {
-      return text.slice(0, 75) + " ...";
-    }
-    return text;
-  };
 
   const handleSelect = () => {
     setOpenChat();
@@ -72,15 +66,15 @@ export const WidgetInbox = ({ data }: { data: IWidgetInboxProps }) => {
             {group_name ? group_name : namePerson}
           </p>
           <p className="text-xs text-primary-disabled min-w-max">
-            {chat && formatDate(chat.timestamp)}{" "}
-            {chat && formatTime(chat.timestamp)}
+            {chat && FormatDate(chat.timestamp)}{" "}
+            {chat && FormatTime(chat.timestamp)}
           </p>
         </div>
         <div className="mt-1 flex flex-1 flex-col max-w-full">
           {type === TYPE_INBOX.group && (
             <p className="font-bold">{chat?.sender} :</p>
           )}
-          <p className="">{truncateText(chat?.content || "")}</p>
+          <p className="">{TruncateText(chat?.content || "")}</p>
         </div>
       </div>
       {chat && !chat.read_by.includes(USER_ENUM.me) && <WidgetUnread />}
