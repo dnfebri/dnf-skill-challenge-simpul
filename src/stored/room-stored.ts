@@ -1,13 +1,13 @@
 import { create } from "zustand";
 
-type TChat = {
+export type TChat = {
   sender: string;
   read_by: string[];
   content: string;
   timestamp: string;
 };
 
-type TRoom = {
+export type TRoom = {
   id: number | null;
   group_name: string | null;
   participants: string[];

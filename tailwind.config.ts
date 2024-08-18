@@ -38,6 +38,14 @@ const config: Config = {
           red: "#EB5757",
           yellow: "#F2C94C",
         },
+        chats: {
+          "bubble-orange": "#FCEED3",
+          "bubble-purple": "#EEDCFF",
+          "bubble-green": "#D2F2EA",
+          "name-orange": "#E5A443",
+          "name-purple": "#9B51E0",
+          "name-green": "#43B78D",
+        },
         quick: {
           DEFAULT: "#2F80ED",
           inbox: "#8885FF",

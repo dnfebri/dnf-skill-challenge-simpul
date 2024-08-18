@@ -31,3 +31,22 @@ body {
     text-wrap: balance;
   }
 }
+
+.bg-bubble-1 {
+  @apply bg-chats-bubble-orange;
+}
+.bg-bubble-2 {
+  @apply bg-chats-bubble-purple;
+}
+.bg-bubble-3 {
+  @apply bg-chats-bubble-green;
+}
+.text-chat-1 {
+  @apply text-chats-name-orange;
+}
+.text-chat-2 {
+  @apply text-chats-name-purple;
+}
+.text-chat-3 {
+  @apply text-chats-name-green;
+}
