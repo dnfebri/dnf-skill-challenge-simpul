@@ -14,6 +14,32 @@ export const FormatTime = (originalDate: string) => {
   return result;
 };
 
+export function FormatDateLabel(date: Date, locale: string = "en-EN"): string {
+  const today = new Date();
+  const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  if (date.toDateString() === today.toDateString()) {
+    return `Today, ${date
+      .toLocaleDateString(locale, options)
+      .split(",")
+      .slice(1)}`;
+  } else if (date.toDateString() === yesterday.toDateString()) {
+    return `Yesterday, ${date
+      .toLocaleDateString(locale, options)
+      .split(",")
+      .slice(1)}`;
+  } else {
+    return date.toLocaleDateString(locale, options);
+  }
+}
+
 export const TruncateText = (text: string, length: number = 75) => {
   if (text.length > length) {
     return text.slice(0, length) + " ...";
