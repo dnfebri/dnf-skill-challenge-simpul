@@ -5,6 +5,7 @@ export type TChat = {
   read_by: string[];
   content: string;
   timestamp: string;
+  unread?: boolean;
 };
 
 export type TRoom = {

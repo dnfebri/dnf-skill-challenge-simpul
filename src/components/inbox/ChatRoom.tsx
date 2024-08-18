@@ -1,6 +1,6 @@
 import { useRoomFunction } from "@/hooks/useRoomFunction";
 import { TChat, useRoomStored } from "@/stored/room-stored";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Loading } from "../loading";
 import { TypeNewMassage } from "./TypeNewMassage";
 import { BubbleChat } from "./BubbleChat";
@@ -15,6 +15,7 @@ type Tresult = {
 export const ChatRoom = () => {
   const { dataRoom, selectRoom, clearRoom } = useRoomStored();
   const { getRoomId } = useRoomFunction();
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (dataRoom.id === selectRoom) return;
@@ -22,6 +23,12 @@ export const ChatRoom = () => {
     getRoomId(selectRoom);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    listRef.current?.scrollTo({
+      top: listRef.current.scrollHeight,
+    });
+  }, [dataRoom]);
 
   const participantColorPairs = dataRoom.participants.map((name, i) => ({
     name: name,
@@ -38,25 +45,40 @@ export const ChatRoom = () => {
   }));
 
   const chatGroupByDate = () => {
+    let countUnread = 0;
     let dateTemporarily = "";
     const result: Tresult[] = [];
     dataRoom.chat.forEach((chat) => {
+      const isUnread =
+        !chat.read_by.includes(USER_ENUM.me) && chat.sender !== USER_ENUM.me;
+      if (isUnread) countUnread++;
       if (dateTemporarily !== chat.timestamp.split(" ")[0]) {
         dateTemporarily = chat.timestamp.split(" ")[0];
         result.push({
           date: dateTemporarily,
-          chat: [chat],
+          chat: [{ ...chat, unread: countUnread <= 1 ? isUnread : undefined }],
         });
       } else {
-        result.find((item) => item.date === dateTemporarily)?.chat.push(chat);
+        const matchingItem = result.find(
+          (item) => item.date === dateTemporarily
+        );
+        if (matchingItem) {
+          matchingItem.chat.push({
+            ...chat,
+            unread: countUnread <= 1 ? isUnread : undefined,
+          });
+        }
       }
     });
     return result;
   };
-
+  console.log(chatGroupByDate());
   return (
     <div className="flex flex-col flex-1 pt-4">
-      <div className="h-full flex flex-col flex-1 max-h-[532px] overflow-y-auto no-scrollbar">
+      <div
+        ref={listRef}
+        className="h-full flex flex-col flex-1 max-h-[532px] overflow-y-auto no-scrollbar"
+      >
         {!dataRoom.id ? (
           <Loading text="Loading Chats..." />
         ) : (
@@ -68,7 +90,7 @@ export const ChatRoom = () => {
               >
                 <div className="flex items-center gap-7">
                   <div className="h-0.5 border-t-2 border-primary-dark w-full" />
-                  <p className="min-w-max">
+                  <p className="min-w-max font-bold">
                     {FormatDateLabel(new Date(item.date))}
                   </p>
                   <div className="h-0.5 border-t-2 border-primary-dark w-full" />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { DotOption } from "../icons";
 import { TChat } from "@/stored/room-stored";
 import { FormatTime } from "@/helpers/format";
@@ -20,8 +20,20 @@ interface IBubbleChatProps {
 export const BubbleChat = (props: IBubbleChatProps) => {
   const { colors, data, isOption } = props;
   const { sender, read_by, content, timestamp } = data;
+  const [isOptionOpen, setIsOptionOpen] = useState(false);
+  const handleOpenOption = () => {
+    setIsOptionOpen(!isOptionOpen);
+  };
+
   return (
-    <div className={``}>
+    <>
+      {data.unread === true && (
+        <div className="flex items-center gap-7">
+          <div className="h-0.5 border-t-2 border-indicator-red w-full" />
+          <p className="min-w-max text-indicator-red font-bold">New Message</p>
+          <div className="h-0.5 border-t-2 border-indicator-red w-full" />
+        </div>
+      )}
       <p
         className={`font-bold ${
           isOption
@@ -45,11 +57,24 @@ export const BubbleChat = (props: IBubbleChatProps) => {
           <p className="mt-3">{FormatTime(timestamp)}</p>
         </div>
         {isOption && (
-          <button>
-            <DotOption />
-          </button>
+          <div className="relative">
+            <button onClick={handleOpenOption}>
+              <DotOption />
+            </button>
+            {isOptionOpen && (
+              <div className="absolute left-0 top-full border border-primary-light rounded-md bg-white">
+                {sender === USER_ENUM.me && (
+                  <>
+                    <button className="py-3 px-5 text-primary">Edit</button>
+                    <div className="h-[1px] bg-primary-light" />
+                  </>
+                )}
+                <button className="py-3 px-5 text-indicator-red">Delete</button>
+              </div>
+            )}
+          </div>
         )}
       </div>
-    </div>
+    </>
   );
 };

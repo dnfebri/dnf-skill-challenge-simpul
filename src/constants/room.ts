@@ -50,6 +50,12 @@ export const ROOM = [
         timestamp: "2024-08-17 19:10:10",
       },
       {
+        sender: cameronPhillips,
+        read_by: [diana, elizabeth, maryHilda],
+        content: "Please check this out!",
+        timestamp: "2024-08-17 19:10:10",
+      },
+      {
         sender: maryHilda,
         read_by: [diana, elizabeth],
         content:
