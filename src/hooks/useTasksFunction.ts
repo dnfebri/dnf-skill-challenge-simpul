@@ -1,8 +1,22 @@
-import { MY_TASKS } from "@/constants/my-tasks";
+import { MY_TASKS, TMyTasks } from "@/constants/my-tasks";
 import { useTasksStore } from "@/stored/tasks-stored";
+
+type TAddTask = {
+  title: string;
+  description: string | null;
+  deadline: Date;
+  completed: boolean;
+};
 
 export const useTasksFunction = () => {
   const { setData, dataTasks } = useTasksStore();
+
+  const handleAddTask = (task: TAddTask) => {
+    const lastData = dataTasks[dataTasks.length - 1];
+    const id = lastData ? lastData.id + 1 : 1;
+    setData([...dataTasks, { ...task, id, tag: [], category: "My Tasks" }]);
+  };
+
   const getTasks = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -36,5 +50,12 @@ export const useTasksFunction = () => {
     const newData = dataTasks.filter((item) => item.id !== id);
     setData(newData);
   };
-  return { getTasks, handleCheckCompleted, handleDeleteTask, handleChangeDate };
+
+  return {
+    getTasks,
+    handleCheckCompleted,
+    handleDeleteTask,
+    handleChangeDate,
+    handleAddTask,
+  };
 };

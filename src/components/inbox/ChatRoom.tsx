@@ -6,7 +6,7 @@ import { TypeNewMassage } from "./TypeNewMassage";
 import { BubbleChat } from "./BubbleChat";
 import { BUBBLE_COLORS, NAME_COLORS } from "@/constants/colorsChat";
 import { USER_ENUM } from "@/enums/user.enum";
-import { FormatDate, FormatDateLabel } from "@/helpers/format";
+import { FormatDateLabel } from "@/helpers/format";
 type Tresult = {
   date: string;
   chat: TChat[];
