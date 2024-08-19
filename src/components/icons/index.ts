@@ -4,3 +4,6 @@ export * from "./QuickTask";
 export * from "./ArrowLeftIcon";
 export * from "./CloseIcon";
 export * from "./DotOption";
+export * from "./ArrowTop";
+export * from "./TimeIcon";
+export * from "./PencilIcon";
