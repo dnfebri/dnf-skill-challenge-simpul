@@ -1,10 +1,20 @@
 const today = new Date();
-export const MY_TASKS = [
+export type TMyTasks = {
+  id: number;
+  title: string;
+  description: string | null;
+  deadline: Date;
+  completed: boolean;
+  category: string;
+  tag: string[];
+};
+
+export const MY_TASKS: TMyTasks[] = [
   {
     id: 1,
     title: "Task 1",
     description: "Task 1 description",
-    deadline: new Date(today.getTime() + 2 * 24 * 60 * 60 * 1000),
+    deadline: new Date("2024-09-01T08:34:49.000Z"),
     completed: false,
     category: "My Tasks",
     tag: [],

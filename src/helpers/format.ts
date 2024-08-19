@@ -40,6 +40,13 @@ export function FormatDateLabel(date: Date, locale: string = "en-EN"): string {
   }
 }
 
+export function DaysLeft(date: Date) {
+  const today = new Date();
+  const diffTime = Math.abs(today.getTime() - date.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+}
+
 export const TruncateText = (text: string, length: number = 75) => {
   if (text.length > length) {
     return text.slice(0, length) + " ...";
