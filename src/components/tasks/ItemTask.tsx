@@ -1,18 +1,36 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ArrowTop, DotOption, PencilIcon, TimeIcon } from "../icons";
-import { MY_TASKS, TMyTasks } from "@/constants/my-tasks";
-import { DaysLeft, FormatDate } from "@/helpers/format";
+import { TMyTasks } from "@/constants/my-tasks";
+import { DaysLeft } from "@/helpers/format";
+import { useTasksFunction } from "@/hooks/useTasksFunction";
 
 interface TItemTaskProps {
-  data: TMyTasks;
+  data: TMyTasks & { key: number };
 }
 
 export const ItemTask = (props: TItemTaskProps) => {
   const { data } = props;
+  const { handleCheckCompleted, handleDeleteTask, handleChangeDate } =
+    useTasksFunction();
   const [isOpen, setIsOpen] = useState(!data.completed);
+  const [isOptionOpen, setIsOptionOpen] = useState(false);
+  const refWrapper = useRef<HTMLDivElement>(null);
+
+  const handleOpenOption = () => {
+    setIsOptionOpen(!isOptionOpen);
+  };
+
+  const confirmDeleteTask = () => {
+    if (window.confirm("Are you sure you want to delete this task?")) {
+      handleDeleteTask(data.id);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsOptionOpen(false);
+  };
 
   const formatDate = (date: Date) => {
-    console.log(date);
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
       month: "2-digit",
@@ -22,10 +40,18 @@ export const ItemTask = (props: TItemTaskProps) => {
   };
 
   return (
-    <div className="py-5 my-0.5 border-t">
+    <div
+      ref={refWrapper}
+      onMouseLeave={handleMouseLeave}
+      className={`py-5 my-0.5 ${data.key !== 0 && "border-t"}`}
+    >
       <div className="flex justify-between items-center">
         <div className="flex gap-5 items-start">
-          <input type="checkbox" checked={data.completed} />
+          <input
+            type="checkbox"
+            checked={data.completed}
+            onChange={() => handleCheckCompleted(data.id)}
+          />
           <p className={`font-bold ${data.completed && "line-through"}`}>
             {data.title}
           </p>
@@ -40,15 +66,27 @@ export const ItemTask = (props: TItemTaskProps) => {
           <p>{formatDate(data.deadline)}</p>
           <button
             className={`transition-all duration-300 ${
-              isOpen ? "rotate-180" : ""
+              !isOpen ? "rotate-180" : ""
             }`}
             onClick={() => setIsOpen(!isOpen)}
           >
             <ArrowTop />
           </button>
-          <button>
-            <DotOption />
-          </button>
+          <span className="relative flex">
+            <button onClick={handleOpenOption}>
+              <DotOption />
+            </button>
+            {isOptionOpen && (
+              <div className="absolute right-0 top-full border border-primary-light rounded-md bg-white">
+                <button
+                  className="py-3 px-5 text-indicator-red"
+                  onClick={confirmDeleteTask}
+                >
+                  Delete
+                </button>
+              </div>
+            )}
+          </span>
         </div>
       </div>
       <div
@@ -64,6 +102,8 @@ export const ItemTask = (props: TItemTaskProps) => {
             type="date"
             className="px-4 py-2 border rounded-md w-48"
             defaultValue={data.deadline.toISOString().split("T")[0]}
+            min={new Date().toISOString().split("T")[0]}
+            onChange={(e) => handleChangeDate(data.id, e.target.value)}
           />
         </div>
         <div className="flex items-start gap-6">
