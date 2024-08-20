@@ -55,7 +55,7 @@ export const MY_TASKS: TMyTasks[] = [
     description: "Assign 3 homework to Client A",
     deadline: new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000),
     completed: false,
-    category: "My Tasks",
+    category: "Personal Errands",
     stickers: [],
   },
 ];

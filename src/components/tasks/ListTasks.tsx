@@ -1,19 +1,21 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ItemTask } from "./ItemTask";
 import { useTasksFunction } from "@/hooks/useTasksFunction";
 import { useTasksStore } from "@/stored/tasks-stored";
 import { AddNewTask } from "./AddNewTask";
 import { Loading } from "../loading";
+import { TASK_CATEGORY } from "@/constants/task-category";
 
 interface IListTasksProps {
   openNewTask: boolean;
   handleTask: () => void;
+  isSelectCt: number | undefined;
 }
 
 export const ListTasks = (props: IListTasksProps) => {
   const { openNewTask, handleTask } = props;
-  const { dataTasks } = useTasksStore();
-  const { isLoading, setIsLoading, getTasks } = useTasksFunction();
+  const { dataTasks, setIsLoading, isLoading } = useTasksStore();
+  const { getTasks } = useTasksFunction();
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const getFunction = async () => {
@@ -32,6 +34,11 @@ export const ListTasks = (props: IListTasksProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // useEffect(() => {
+  //   getFunction(props.isSelectCt);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [props.isSelectCt]);
+
   useEffect(() => {
     if (openNewTask) {
       wrapperRef.current?.scrollTo({
@@ -40,6 +47,8 @@ export const ListTasks = (props: IListTasksProps) => {
       });
     }
   }, [openNewTask]);
+
+  const category = TASK_CATEGORY.find((ct) => ct.id === props.isSelectCt);
 
   return (
     <div
@@ -50,12 +59,23 @@ export const ListTasks = (props: IListTasksProps) => {
         <Loading text="Loading Task List ..." />
       ) : (
         <>
-          {dataTasks.map((item, idx) => (
-            <ItemTask key={idx} data={{ ...item, key: idx }} />
-          ))}
+          {props.isSelectCt
+            ? [...dataTasks]
+                .filter((item) => item.category === category?.name)
+                .map((item, idx) => (
+                  <ItemTask key={idx} data={{ ...item, key: idx }} />
+                ))
+            : dataTasks.map((item, idx) => (
+                <ItemTask key={idx} data={{ ...item, key: idx }} />
+              ))}
         </>
       )}
-      {openNewTask && <AddNewTask handleTask={handleTask} />}
+      {openNewTask && (
+        <AddNewTask
+          handleTask={handleTask}
+          caregory={category?.name || "My Tasks"}
+        />
+      )}
     </div>
   );
 };

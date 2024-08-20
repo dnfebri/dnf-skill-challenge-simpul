@@ -1,25 +1,44 @@
 import { MY_TASKS, TMyTasks } from "@/constants/my-tasks";
+import { TASK_CATEGORY } from "@/constants/task-category";
 import { useTasksStore } from "@/stored/tasks-stored";
-import { useState } from "react";
 
 type TAddTask = {
   title: string;
   description: string | null;
   deadline: Date;
   completed: boolean;
+  category: string;
 };
 
 export const useTasksFunction = () => {
-  const { setData, dataTasks } = useTasksStore();
-  const [isLoading, setIsLoading] = useState(false);
+  const { setData, dataTasks, setDataSelect } = useTasksStore();
 
   const handleAddTask = (task: TAddTask) => {
     const lastData = dataTasks[dataTasks.length - 1];
     const id = lastData ? lastData.id + 1 : 1;
-    setData([
-      ...dataTasks,
-      { ...task, id, stickers: [], category: "My Tasks" },
-    ]);
+    setData([...dataTasks, { ...task, id, stickers: [] }]);
+  };
+
+  const selectById = (id: number): Promise<boolean> => {
+    const category = TASK_CATEGORY.find((item) => item.id === id);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        setDataSelect(
+          dataTasks.filter((item) => item.category === category?.name)
+        );
+        resolve(true);
+      }, 1500);
+    });
+  };
+
+  const handleSelectCt = async (id: number) => {
+    try {
+      const res = await selectById(id);
+      if (res) return res;
+      return false;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getTasks = () => {
@@ -67,8 +86,7 @@ export const useTasksFunction = () => {
   };
 
   return {
-    isLoading,
-    setIsLoading,
+    handleSelectCt,
     getTasks,
     handleCheckCompleted,
     handleDeleteTask,

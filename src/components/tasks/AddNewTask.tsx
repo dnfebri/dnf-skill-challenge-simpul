@@ -6,6 +6,7 @@ import { useTasksFunction } from "@/hooks/useTasksFunction";
 
 interface IAddNewTaskProps {
   handleTask: (e: boolean) => void;
+  caregory: string;
 }
 
 export const AddNewTask = (props: IAddNewTaskProps) => {
@@ -33,6 +34,7 @@ export const AddNewTask = (props: IAddNewTaskProps) => {
       description: isDescriptionValue,
       completed: false,
       deadline: new Date(inputs.deadline),
+      category: props.caregory,
     });
     setInputs({});
     props.handleTask(false);
