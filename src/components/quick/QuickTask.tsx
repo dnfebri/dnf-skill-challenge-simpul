@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { HeaderTasks } from "../tasks/HeaderTasks";
 import { ListTasks } from "../tasks/ListTasks";
-import { TASK_CATEGORY } from "@/constants/task-category";
 
 export const QuickTask = () => {
   const [isNewTask, setIsNewTask] = useState(false);

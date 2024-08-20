@@ -19,6 +19,7 @@ export const ListTasks = (props: IListTasksProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const getFunction = async () => {
+    if (dataTasks.length > 0) return;
     setIsLoading(true);
     try {
       await getTasks();
