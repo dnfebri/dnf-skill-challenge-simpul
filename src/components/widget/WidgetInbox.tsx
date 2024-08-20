@@ -71,9 +71,13 @@ export const WidgetInbox = ({ data }: { data: IWidgetInboxProps }) => {
           </p>
         </div>
         <div className="mt-1 flex flex-1 flex-col max-w-full">
-          {type === TYPE_INBOX.group && (
-            <p className="font-bold">{chat?.sender} :</p>
-          )}
+          {type === TYPE_INBOX.group ? (
+            <p className="font-bold">
+              {chat?.sender === USER_ENUM.me ? "You" : chat?.sender} :
+            </p>
+          ) : chat?.sender === USER_ENUM.me ? (
+            <p className="font-bold">You</p>
+          ) : null}
           <p className="">{TruncateText(chat?.content || "")}</p>
         </div>
       </div>

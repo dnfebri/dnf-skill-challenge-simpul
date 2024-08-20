@@ -4,15 +4,18 @@ import { ArrowLeftIcon, CloseIcon } from "../icons";
 import { useQuickStored } from "@/stored/quick-stored";
 import { TruncateText } from "@/helpers/format";
 import { USER_ENUM } from "@/enums/user.enum";
+import { useInboxStored } from "@/stored/inbox-stored";
 
 export const ChatHeader = () => {
   const { setOpenChat, dataRoom } = useRoomStored();
+  const { setReadMeNBack } = useInboxStored();
   const { setQuickActive, setInboxActive, setTaskActive, quickActive } =
     useQuickStored();
   const { participants } = dataRoom;
 
   const handleBack = () => {
     setOpenChat(false);
+    setReadMeNBack(dataRoom.id);
   };
 
   const handleClose = () => {

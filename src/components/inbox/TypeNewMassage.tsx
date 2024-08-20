@@ -8,6 +8,7 @@ export const TypeNewMassage = () => {
 
   const handleSend = () => {
     sendChat(isChat);
+    setIsChat("");
   };
   return (
     <div className="pt-2 flex gap-3.5 text-base items-center">
