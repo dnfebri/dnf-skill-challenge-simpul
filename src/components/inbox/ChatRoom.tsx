@@ -72,7 +72,7 @@ export const ChatRoom = () => {
     });
     return result;
   };
-  console.log(chatGroupByDate());
+
   return (
     <div className="flex flex-col flex-1 pt-4">
       <div

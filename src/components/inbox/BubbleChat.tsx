@@ -66,7 +66,7 @@ export const BubbleChat = (props: IBubbleChatProps) => {
                 {sender === USER_ENUM.me && (
                   <>
                     <button className="py-3 px-5 text-primary">Edit</button>
-                    <div className="h-[1px] bg-primary-light" />
+                    <hr className="h-[1px] bg-primary-light" />
                   </>
                 )}
                 <button className="py-3 px-5 text-indicator-red">Delete</button>

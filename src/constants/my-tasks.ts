@@ -12,17 +12,20 @@ export type TMyTasks = {
 export const MY_TASKS: TMyTasks[] = [
   {
     id: 1,
-    title: "Task 1",
-    description: "Task 1 description",
-    deadline: new Date("2024-09-01T08:34:49.000Z"),
+    title: "Close off Case #012920- RODRIGUES, Amiguel",
+    description:
+      "Closing off this case since this application has been cancelled. No one really understand how this case could possibly be cancelled. The options and the documents within this document were totally a guaranteed for a success!",
+    deadline: new Date(today.getTime() + 2 * 24 * 60 * 60 * 1000),
     completed: false,
     category: "My Tasks",
     stickers: [],
   },
   {
     id: 2,
-    title: "Task 2",
-    description: "Task 2 description",
+    title:
+      "Set up documentation report for several Cases : Case 145443, Case 192829 and Case 182203",
+    description:
+      "All Cases must include all payment transactions, all documents and forms filled. All conversations in comments and messages in channels and emails should be provided as well in.",
     deadline: new Date(today.getTime() + 4 * 24 * 60 * 60 * 1000),
     completed: true,
     category: "My Tasks",
@@ -30,8 +33,8 @@ export const MY_TASKS: TMyTasks[] = [
   },
   {
     id: 3,
-    title: "Task 3",
-    description: "Task 3 description",
+    title: "Set up appointment with Dr Blake",
+    description: null,
     deadline: new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000),
     completed: true,
     category: "My Tasks",
@@ -39,17 +42,17 @@ export const MY_TASKS: TMyTasks[] = [
   },
   {
     id: 4,
-    title: "Task 4",
-    description: "Task 4 description",
+    title: "Contact Mr Caleb - video conference?",
+    description: "Description Contact Mr Caleb - video conference?",
     deadline: new Date(today.getTime() + 4 * 24 * 60 * 60 * 1000),
-    completed: false,
+    completed: true,
     category: "My Tasks",
     stickers: [],
   },
   {
     id: 5,
-    title: "Task 5",
-    description: null,
+    title: "Assign 3 homework to Client A",
+    description: "Assign 3 homework to Client A",
     deadline: new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000),
     completed: false,
     category: "My Tasks",
