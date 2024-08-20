@@ -10,11 +10,18 @@ interface TItemTaskProps {
 
 export const ItemTask = (props: TItemTaskProps) => {
   const { data } = props;
-  const { handleCheckCompleted, handleDeleteTask, handleChangeDate } =
-    useTasksFunction();
+  const {
+    handleCheckCompleted,
+    handleDeleteTask,
+    handleChangeDate,
+    handleEditDescription,
+  } = useTasksFunction();
   const [isOpen, setIsOpen] = useState(!data.completed);
   const [isOptionOpen, setIsOptionOpen] = useState(false);
-  const refWrapper = useRef<HTMLDivElement>(null);
+  const [isDescriptionEdit, setIsDescriptionEdit] = useState(false);
+  const [isDescriptionValue, setIsDescriptionValue] = useState<string | null>(
+    data.description
+  );
 
   const handleOpenOption = () => {
     setIsOptionOpen(!isOptionOpen);
@@ -30,6 +37,11 @@ export const ItemTask = (props: TItemTaskProps) => {
     setIsOptionOpen(false);
   };
 
+  const handleEditDescript = () => {
+    handleEditDescription(data.id, isDescriptionValue);
+    setIsDescriptionEdit(!isDescriptionEdit);
+  };
+
   const formatDate = (date: Date) => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
@@ -41,7 +53,6 @@ export const ItemTask = (props: TItemTaskProps) => {
 
   return (
     <div
-      ref={refWrapper}
       onMouseLeave={handleMouseLeave}
       className={`py-5 my-0.5 ${data.key !== 0 && "border-t"}`}
     >
@@ -107,10 +118,29 @@ export const ItemTask = (props: TItemTaskProps) => {
           />
         </div>
         <div className="flex items-start gap-6">
-          <i className={data.description ? "text-primary" : ""}>
+          <i
+            onClick={() => setIsDescriptionEdit(!isDescriptionEdit)}
+            className={`cursor-pointer ${
+              data.description ? "text-primary" : ""
+            }`}
+          >
             <PencilIcon />
           </i>
-          <p className="leading-4">{data.description ?? "No Description"}</p>
+          {isDescriptionEdit ? (
+            <textarea
+              onBlur={handleEditDescript}
+              className="w-full border border-primary-dark rounded-md p-3.5"
+              value={isDescriptionValue || ""}
+              onChange={(e) => setIsDescriptionValue(e.target.value)}
+            ></textarea>
+          ) : (
+            <p
+              onClick={() => setIsDescriptionEdit(!isDescriptionEdit)}
+              className="leading-4 cursor-pointer"
+            >
+              {data.description ?? "No Description"}
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { MY_TASKS, TMyTasks } from "@/constants/my-tasks";
 import { useTasksStore } from "@/stored/tasks-stored";
+import { useState } from "react";
 
 type TAddTask = {
   title: string;
@@ -10,6 +11,7 @@ type TAddTask = {
 
 export const useTasksFunction = () => {
   const { setData, dataTasks } = useTasksStore();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddTask = (task: TAddTask) => {
     const lastData = dataTasks[dataTasks.length - 1];
@@ -22,7 +24,7 @@ export const useTasksFunction = () => {
       setTimeout(() => {
         setData(MY_TASKS);
         resolve(true);
-      }, 500);
+      }, 1500);
     });
   };
 
@@ -46,16 +48,29 @@ export const useTasksFunction = () => {
     setData(newData);
   };
 
+  const handleEditDescription = (id: number, description: string | null) => {
+    const newData = dataTasks.map((item) => {
+      if (item.id === id) {
+        item.description = description;
+      }
+      return item;
+    });
+    setData(newData);
+  };
+
   const handleDeleteTask = (id: number) => {
     const newData = dataTasks.filter((item) => item.id !== id);
     setData(newData);
   };
 
   return {
+    isLoading,
+    setIsLoading,
     getTasks,
     handleCheckCompleted,
     handleDeleteTask,
     handleChangeDate,
+    handleEditDescription,
     handleAddTask,
   };
 };
