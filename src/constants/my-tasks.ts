@@ -6,7 +6,7 @@ export type TMyTasks = {
   deadline: Date;
   completed: boolean;
   category: string;
-  tag: string[];
+  stickers: string[];
 };
 
 export const MY_TASKS: TMyTasks[] = [
@@ -17,7 +17,7 @@ export const MY_TASKS: TMyTasks[] = [
     deadline: new Date("2024-09-01T08:34:49.000Z"),
     completed: false,
     category: "My Tasks",
-    tag: [],
+    stickers: [],
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ export const MY_TASKS: TMyTasks[] = [
     deadline: new Date(today.getTime() + 4 * 24 * 60 * 60 * 1000),
     completed: true,
     category: "My Tasks",
-    tag: [],
+    stickers: [],
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ export const MY_TASKS: TMyTasks[] = [
     deadline: new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000),
     completed: true,
     category: "My Tasks",
-    tag: [],
+    stickers: [],
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ export const MY_TASKS: TMyTasks[] = [
     deadline: new Date(today.getTime() + 4 * 24 * 60 * 60 * 1000),
     completed: false,
     category: "My Tasks",
-    tag: [],
+    stickers: [],
   },
   {
     id: 5,
@@ -53,6 +53,6 @@ export const MY_TASKS: TMyTasks[] = [
     deadline: new Date(today.getTime() + 10 * 24 * 60 * 60 * 1000),
     completed: false,
     category: "My Tasks",
-    tag: [],
+    stickers: [],
   },
 ];

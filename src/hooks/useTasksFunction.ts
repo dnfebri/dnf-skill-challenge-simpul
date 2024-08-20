@@ -16,7 +16,10 @@ export const useTasksFunction = () => {
   const handleAddTask = (task: TAddTask) => {
     const lastData = dataTasks[dataTasks.length - 1];
     const id = lastData ? lastData.id + 1 : 1;
-    setData([...dataTasks, { ...task, id, tag: [], category: "My Tasks" }]);
+    setData([
+      ...dataTasks,
+      { ...task, id, stickers: [], category: "My Tasks" },
+    ]);
   };
 
   const getTasks = () => {
