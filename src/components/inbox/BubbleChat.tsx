@@ -21,12 +21,12 @@ export const BubbleChat = (props: IBubbleChatProps) => {
   const { colors, data, isOption } = props;
   const { sender, read_by, content, timestamp } = data;
   const [isOptionOpen, setIsOptionOpen] = useState(false);
-  const handleOpenOption = () => {
-    setIsOptionOpen(!isOptionOpen);
+  const handleOpenOption = (e: boolean = !isOptionOpen) => {
+    setIsOptionOpen(e);
   };
 
   return (
-    <>
+    <div onMouseLeave={() => handleOpenOption(false)}>
       {data.unread === true && (
         <div className="flex items-center gap-7">
           <div className="h-0.5 border-t-2 border-indicator-red w-full" />
@@ -58,7 +58,7 @@ export const BubbleChat = (props: IBubbleChatProps) => {
         </div>
         {isOption && (
           <div className="relative">
-            <button onClick={handleOpenOption}>
+            <button onClick={() => handleOpenOption()}>
               <DotOption />
             </button>
             {isOptionOpen && (
@@ -75,6 +75,6 @@ export const BubbleChat = (props: IBubbleChatProps) => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
